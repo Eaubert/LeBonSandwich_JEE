@@ -1,9 +1,12 @@
 package org.lpro.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -18,26 +21,37 @@ public class Categorie implements Serializable{
 
     @Id
     @GeneratedValue
-    private long id;
+    private String id;
     @NotNull
     private String nom;
     @NotNull
     private String description;
+    
+    @ManyToMany(mappedBy = "categorie")
+    private Set<Sandwich> sandwich = new HashSet<Sandwich>();
+
+    public Set<Sandwich> getSandwich() {
+        return sandwich;
+    }
+
+    public void setSandwich(Set<Sandwich> sandwich) {
+        this.sandwich = sandwich;
+    }
 
     public Categorie() {
     }
 
-    public Categorie(long id, String nom, String description) {
+    public Categorie(String id, String nom, String description) {
         this.id = id;
         this.nom = nom;
         this.description = description;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
